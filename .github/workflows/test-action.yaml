@@ -1,0 +1,16 @@
+name: setup-mysql-action
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-trigger:
+    name: test-trigger
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "Action has been triggered."
