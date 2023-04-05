@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    if: ${{ github.event.label.name == 'skip-ci' }}
+    if: contains(github.event.pull_request.labels.*.name, 'skip-ci')
     runs-on: ubuntu-latest
     
     steps:
