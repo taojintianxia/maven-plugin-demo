@@ -3,13 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
+    
     <groupId>com.github.taojintianxia</groupId>
     <artifactId>maven-plugin-demo</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <lombok.version>1.18.26</lombok.version>
+        <maven-jxr-plugin.version>3.3.0</maven-jxr-plugin.version>
     </properties>
     
     <dependencies>
@@ -22,6 +28,25 @@
     </dependencies>
     
     <reporting>
-    
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugin</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>${maven-jxr-plugin.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/test/*.java</exclude>
+                    </excludes>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                        <inherited>false</inherited>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
     </reporting>
 </project>
