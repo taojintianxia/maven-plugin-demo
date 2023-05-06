@@ -17,6 +17,7 @@
     <modules>
         <module>infra</module>
         <module>common</module>
+        <module>jacoco-report</module>
     </modules>
     
     <properties>
@@ -61,31 +62,28 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>com.github.spotbugs</groupId>
-                    <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>4.6.0.0</version>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.0.0</version>
                     <dependencies>
                         <dependency>
-                            <groupId>com.github.spotbugs</groupId>
-                            <artifactId>spotbugs</artifactId>
-                            <version>${spotbugs.version}</version>
+                            <groupId>org.apache.maven.surefire</groupId>
+                            <artifactId>surefire-junit47</artifactId>
+                            <version>3.0.0</version>
                         </dependency>
                     </dependencies>
+                    <configuration>
+                        <!-- for jacoco -->
+                        <!--suppress UnresolvedMavenProperty -->
+                        <argLine>@{argLine}</argLine>
+                        <forkCount>1</forkCount>
+                        <reuseForks>false</reuseForks>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
+        
         <plugins>
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs</artifactId>
-                        <version>${spotbugs.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -98,30 +96,15 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                    <execution>
                         <id>report-aggregate</id>
                         <phase>test</phase>
                         <goals>
-                            <goal>report-aggregate</goal>
+                            <goal>report-aggregate</goal><!-- other modules -->
+                            <goal>report</goal><!-- this modules -->
                         </goals>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-    
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>

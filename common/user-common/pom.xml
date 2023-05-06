@@ -9,4 +9,16 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <artifactId>user-common</artifactId>
+    
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
