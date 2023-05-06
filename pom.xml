@@ -18,6 +18,7 @@
         <module>infra</module>
         <module>common</module>
         <module>jacoco-report</module>
+        <module>infra/infra-demo/infra-demo-sub</module>
     </modules>
     
     <properties>
