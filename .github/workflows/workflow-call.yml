@@ -1,0 +1,11 @@
+name: Test skip CI
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  call-sonar-workflow:
+    name: Verify
+    uses: apache/shardingsphere/.github/workflows/check-sonarcloud.yml@master
