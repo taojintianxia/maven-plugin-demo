@@ -54,7 +54,7 @@ jobs:
             ${{ env.CACHE_PREFIX }}-maven-third-party-
       - name: Analyze
         run: >
-          ./mvnw clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          mvnw clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
           -Dsonar.branch.name=${{ github.ref_name }}
           -Dsonar.projectKey=apache_shardingsphere
           -Dsonar.login=${SONARCLOUD_TOKEN}
