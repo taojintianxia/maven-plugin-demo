@@ -30,7 +30,6 @@ env:
 
 jobs:
   analyze-sonarcloud:
-    if: github.repository == 'apache/shardingsphere'
     name: Analyze to SonarCloud
     runs-on: ubuntu-latest
     timeout-minutes: 40
