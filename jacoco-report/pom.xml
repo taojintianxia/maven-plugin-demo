@@ -32,13 +32,13 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
-    
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
+                <version>0.8.8</version>
                 <executions>
                     <!--  在执行 mvn verify 时，生成聚合测试覆盖率报告，所有 Maven 子模块的测试覆盖率数据 -->
                     <execution>

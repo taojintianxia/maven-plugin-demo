@@ -58,50 +58,28 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.apache.maven.surefire</groupId>
-                            <artifactId>surefire-junit47</artifactId>
-                            <version>3.0.0</version>
-                        </dependency>
-                    </dependencies>
-                    <configuration>
-                        <!-- for jacoco -->
-                        <!--suppress UnresolvedMavenProperty -->
-                        <argLine>@{argLine}</argLine>
-                        <forkCount>1</forkCount>
-                        <reuseForks>false</reuseForks>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-        
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.10</version>
                 <executions>
+                    <!--  执行 prepare-agent 目标，它会启动 JaCoCo 代理 -->
                     <execution>
-                        <id>prepare-agent</id>
+                        <id>default-prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
+
+                    <!-- 执行 mvn verify 时，生成测试覆盖率报告 -->
                     <execution>
-                        <id>report-aggregate</id>
-                        <phase>test</phase>
+                        <id>report</id>
+                        <phase>verify</phase>
                         <goals>
-                            <goal>report-aggregate</goal><!-- other modules -->
-                            <goal>report</goal><!-- this modules -->
+                            <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
