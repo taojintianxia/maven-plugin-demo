@@ -58,7 +58,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
+    
     <build>
         <plugins>
             <plugin>
@@ -66,18 +66,14 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.10</version>
                 <executions>
-                    <!--  执行 prepare-agent 目标，它会启动 JaCoCo 代理 -->
                     <execution>
-                        <id>default-prepare-agent</id>
+                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
-
-                    <!-- 执行 mvn verify 时，生成测试覆盖率报告 -->
                     <execution>
                         <id>report</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>

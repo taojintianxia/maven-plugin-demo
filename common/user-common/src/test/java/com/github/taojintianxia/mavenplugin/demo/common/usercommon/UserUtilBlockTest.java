@@ -6,6 +6,7 @@ public class UserUtilBlockTest {
     
     @Test
     public void testPrintUserName() {
-        UserUtil.printUserName();
+        new UserUtil().printUserName();
+        assert true;
     }
 }
