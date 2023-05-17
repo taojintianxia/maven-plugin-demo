@@ -12,7 +12,7 @@ jobs:
           java-version: 18
       - name: Retrieve SpotBugs report list
         run: |
-          find . -name \"*Test.java\" -exec printf "%s," {} + | sed 's/,$//'
-          echo "SPOTBUGS_LIST=$(find . -name spotbugsXml.xml -exec printf "%s," {} + | sed 's/,$//')" >> $GITHUB_OUTPUT
+          find . -name pom.xml -exec printf "%s," {} + | sed 's/,$//'
+          echo "SPOTBUGS_LIST=$(find . -name pom.xml -exec printf "%s," {} + | sed 's/,$//')" >> $GITHUB_OUTPUT
       - name: upload to SonarCloud
         run: echo ${{ steps.version.outputs.SPOTBUGS_LIST }}
