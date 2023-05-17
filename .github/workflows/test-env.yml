@@ -13,6 +13,6 @@ jobs:
       - name: Retrieve SpotBugs report list
         run: |
           find . -name pom.xml -exec printf "%s," {} + | sed 's/,$//'
-          echo "SPOTBUGS_LIST=$(find . -name pom.xml -exec printf "%s," {} + | sed 's/,$//')" >> $GITHUB_OUTPUT
+          echo "SPOTBUGS_LIST=$(find . -name pom.xml -exec printf "%s," {} + | sed 's/,$//')" >> $GITHUB_ENV
       - name: upload to SonarCloud
-        run: echo ${{ steps.version.outputs.SPOTBUGS_LIST }}
+        run: echo ${SPOTBUGS_LIST}
