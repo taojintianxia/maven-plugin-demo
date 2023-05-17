@@ -60,26 +60,154 @@
     </dependencyManagement>
     
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>3.2.2</version>
+                    <executions>
+                        <execution>
+                            <id>report</id>
+                            <goals>
+                                <goal>checkstyle</goal>
+                                <goal>checkstyle-aggregate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.2.2</version>
+            </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.10</version>
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>prepare-agent</id>-->
+<!--                        <goals>-->
+<!--                            <goal>prepare-agent</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        <id>report</id>-->
+<!--                        <goals>-->
+<!--                            <goal>report</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.20.0</version>
+                <configuration>
+                    <aggregate>true</aggregate>
+                    <targetJdk>${java.version}</targetJdk>
+                    <rulesets>
+                        <!--suppress MavenModelInspection -->
+                        <ruleset>${maven.multiModuleProjectDirectory}/src/resources/pmd.xml</ruleset>
+                    </rulesets>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.7.3.4</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <failOnError>false</failOnError>
+                    <includeFilterFile>src/resources/spotbugs-security-include.xml</includeFilterFile>
+                    <excludeFilterFile>src/resources/spotbugs-security-exclude.xml</excludeFilterFile>
+                    <xmlOutput>true</xmlOutput>
+                    <!-- Optional directory to put spotbugs xdoc xml report -->
+                    <xmlOutputDirectory>target/site</xmlOutputDirectory>
+                    <plugins>
+                        <plugin>
+                            <groupId>com.h3xstream.findsecbugs</groupId>
+                            <artifactId>findsecbugs-plugin</artifactId>
+                            <version>LATEST</version> <!-- Auto-update to the latest stable -->
+                        </plugin>
+                    </plugins>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>prepare-agent</id>
                         <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <goals>
-                            <goal>report</goal>
+                            <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+                    <dependency>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs</artifactId>
+                        <version>4.7.3</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
+    
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.2.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.20.0</version>
+                <reportSets>
+                    <reportSet><!-- by default, id = "default" -->
+                        <reports><!-- select non-aggregate reports -->
+                            <report>pmd</report>
+                            <report>cpd</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet><!-- aggregate reportSet, to define in poms having modules -->
+                        <id>aggregate</id>
+                        <inherited>false</inherited> <!-- don't run aggregate in child modules -->
+                        <reports>
+                            <report>aggregate-pmd</report>
+                            <report>aggregate-cpd</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>4.7.3.4</version>
+                <configuration>
+                    <effort>Max</effort>
+                    <threshold>Low</threshold>
+                    <failOnError>false</failOnError>
+                    <includeFilterFile>src/resources/spotbugs-security-include.xml</includeFilterFile>
+                    <excludeFilterFile>src/resources/spotbugs-security-exclude.xml</excludeFilterFile>
+                    <xmlOutput>true</xmlOutput>
+                    <!-- Optional directory to put spotbugs xdoc xml report -->
+                    <xmlOutputDirectory>target/site</xmlOutputDirectory>
+                    <plugins>
+                        <plugin>
+                            <groupId>com.h3xstream.findsecbugs</groupId>
+                            <artifactId>findsecbugs-plugin</artifactId>
+                            <version>LATEST</version> <!-- Auto-update to the latest stable -->
+                        </plugin>
+                    </plugins>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>
