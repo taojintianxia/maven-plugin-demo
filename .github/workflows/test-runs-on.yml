@@ -11,7 +11,7 @@ jobs:
       matrix:
         runs_on: [ubuntu-latest, macos-latest, windows-latest]
         exclude:
-          runs_on: macos-latest, windows-latest
+          - runs_on: macos-latest, windows-latest
     runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Checkout
