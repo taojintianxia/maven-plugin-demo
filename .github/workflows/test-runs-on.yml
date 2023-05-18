@@ -7,7 +7,7 @@ env:
 
 jobs:
   run:
-    runs-on: ${{ vars.RUNNER }}
+    runs-on: ${{ env.runs_on }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
