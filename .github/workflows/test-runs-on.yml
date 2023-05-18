@@ -6,14 +6,17 @@ env:
   runs_on: ubuntu-latest
 
 jobs:
-  run:
-    runs-on: ${{ vars.RUNNER }}
+  test:
+    strategy:
+      matrix:
+        runs-on: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up JDK 18
-        uses: actions/setup-java@v1
+        uses: actions/checkout@v3
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
         with:
-          java-version: 18
-      - name: Retrieve SpotBugs report list
+          java-version: 11
+      - name: Echo Hello
         run: echo "Hello World"
