@@ -1,4 +1,4 @@
-name: Test Runs on
+name: Test Runs On
 
 on: [push, pull_request, workflow_dispatch]
 
