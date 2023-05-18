@@ -1,7 +1,10 @@
 name: Test Env
-on: [push, pull_request]
+
+on: [push, pull_request, workflow_dispatch]
+
 jobs:
   run:
+    if: (github.repository == 'taojintianxia/maven-plugin-demo' && github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
