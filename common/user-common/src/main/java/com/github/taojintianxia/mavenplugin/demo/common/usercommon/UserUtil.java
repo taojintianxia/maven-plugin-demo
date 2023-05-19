@@ -7,6 +7,7 @@ public class UserUtil {
     }
     
     public String getUserName() {
+        System.out.println("Hello World! User");
         return "Hello World! User";
     }
 }

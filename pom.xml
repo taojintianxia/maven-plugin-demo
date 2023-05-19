@@ -75,6 +75,7 @@
                                 <goal>checkstyle</goal>
                                 <goal>checkstyle-aggregate</goal>
                             </goals>
+                            <phase>verify</phase>
                         </execution>
                     </executions>
                 </plugin>
@@ -86,10 +87,10 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.2.2</version>
             </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
+<!--            <plugin>-->
+<!--                <groupId>org.jacoco</groupId>-->
+<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
+<!--                <version>0.8.10</version>-->
 <!--                <executions>-->
 <!--                    <execution>-->
 <!--                        <id>prepare-agent</id>-->
@@ -104,58 +105,58 @@
 <!--                        </goals>-->
 <!--                    </execution>-->
 <!--                </executions>-->
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.20.0</version>
-                <configuration>
-                    <aggregate>true</aggregate>
-                    <targetJdk>${java.version}</targetJdk>
-                    <rulesets>
-                        <!--suppress MavenModelInspection -->
-                        <ruleset>${maven.multiModuleProjectDirectory}/src/resources/pmd.xml</ruleset>
-                    </rulesets>
-                </configuration>
-            </plugin>
-            
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.7.3.4</version>
-                <configuration>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <failOnError>false</failOnError>
-                    <includeFilterFile>src/resources/spotbugs-security-include.xml</includeFilterFile>
-                    <excludeFilterFile>src/resources/spotbugs-security-exclude.xml</excludeFilterFile>
-                    <xmlOutput>true</xmlOutput>
-                    <!-- Optional directory to put spotbugs xdoc xml report -->
-                    <xmlOutputDirectory>target/site</xmlOutputDirectory>
-                    <plugins>
-                        <plugin>
-                            <groupId>com.h3xstream.findsecbugs</groupId>
-                            <artifactId>findsecbugs-plugin</artifactId>
-                            <version>LATEST</version> <!-- Auto-update to the latest stable -->
-                        </plugin>
-                    </plugins>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
-                    <dependency>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs</artifactId>
-                        <version>4.7.3</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-pmd-plugin</artifactId>-->
+<!--                <version>3.20.0</version>-->
+<!--                <configuration>-->
+<!--                    <aggregate>true</aggregate>-->
+<!--                    <targetJdk>${java.version}</targetJdk>-->
+<!--                    <rulesets>-->
+<!--                        &lt;!&ndash;suppress MavenModelInspection &ndash;&gt;-->
+<!--                        <ruleset>${maven.multiModuleProjectDirectory}/src/resources/pmd.xml</ruleset>-->
+<!--                    </rulesets>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--            -->
+<!--            <plugin>-->
+<!--                <groupId>com.github.spotbugs</groupId>-->
+<!--                <artifactId>spotbugs-maven-plugin</artifactId>-->
+<!--                <version>4.7.3.4</version>-->
+<!--                <configuration>-->
+<!--                    <effort>Max</effort>-->
+<!--                    <threshold>Low</threshold>-->
+<!--                    <failOnError>false</failOnError>-->
+<!--                    <includeFilterFile>src/resources/spotbugs-security-include.xml</includeFilterFile>-->
+<!--                    <excludeFilterFile>src/resources/spotbugs-security-exclude.xml</excludeFilterFile>-->
+<!--                    <xmlOutput>true</xmlOutput>-->
+<!--                    &lt;!&ndash; Optional directory to put spotbugs xdoc xml report &ndash;&gt;-->
+<!--                    <xmlOutputDirectory>target/site</xmlOutputDirectory>-->
+<!--                    <plugins>-->
+<!--                        <plugin>-->
+<!--                            <groupId>com.h3xstream.findsecbugs</groupId>-->
+<!--                            <artifactId>findsecbugs-plugin</artifactId>-->
+<!--                            <version>LATEST</version> &lt;!&ndash; Auto-update to the latest stable &ndash;&gt;-->
+<!--                        </plugin>-->
+<!--                    </plugins>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>check</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <dependencies>-->
+<!--                    &lt;!&ndash; overwrite dependency on spotbugs if you want to specify the version of spotbugs &ndash;&gt;-->
+<!--                    <dependency>-->
+<!--                        <groupId>com.github.spotbugs</groupId>-->
+<!--                        <artifactId>spotbugs</artifactId>-->
+<!--                        <version>4.7.3</version>-->
+<!--                    </dependency>-->
+<!--                </dependencies>-->
+<!--            </plugin>-->
         </plugins>
     </build>
     
