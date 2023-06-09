@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Dependency Review
         uses: actions/dependency-review-action@v3
-#        with:
-#          head-ref: HEAD
-#          base-ref: "${{ github.sha }}"
-#          allow-licenses: MIT, BSD-3-Clause, BSD-2-Clause, 0BSD, Unlicense, ISC, Apache-2.0
+        with:
+          base-ref: ${{ github.event.before }}
+          head-ref: ${{ github.sha }}
+          allow-licenses: MIT, BSD-3-Clause, BSD-2-Clause, 0BSD, Unlicense, ISC, Apache-2.0
