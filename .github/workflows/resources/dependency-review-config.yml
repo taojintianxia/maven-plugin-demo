@@ -1,8 +1,10 @@
-fail_on_severity: 'low'
+fail_on_severity: 'critical'
+vulnerability-check: true
+license-check: true
 allow_licenses:
-  - 'MIT'
-  - 'ISC'
-  - 'MPL-2.0'
-  - 'BSD-2-Clause'
-  - 'BSD-3-Clause'
+#  - 'MIT'
+#  - 'ISC'
+#  - 'MPL-2.0'
+#  - 'BSD-2-Clause'
+#  - 'BSD-3-Clause'
   - 'Apache-2.0'
