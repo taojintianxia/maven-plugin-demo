@@ -13,5 +13,4 @@ jobs:
         with:
           head-ref: HEAD
           base-ref: "${{ github.sha }}"
-          config-file: './.github/workflows/resources/dependency-review-config.yml'
           allow-licenses: MIT, BSD-3-Clause, BSD-2-Clause, 0BSD, Unlicense, ISC, Apache-2.0
