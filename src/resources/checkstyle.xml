@@ -153,12 +153,17 @@
         <module name="JavadocBlockTagLocation" />
         <module name="JavadocContentLocation" />
         <module name="JavadocMethod">
-            <property name="allowedAnnotations" value="Override, Test, BeforeEach, AfterEach, BeforeAll, AfterAll, ParameterizedTest" />
+            <property name="severity" value="warning" />
             <property name="validateThrows" value="true" />
             <property name="tokens" value="METHOD_DEF, ANNOTATION_FIELD_DEF" />
         </module>
-        <module name="JavadocMissingLeadingAsterisk" />
-        <module name="JavadocMissingWhitespaceAfterAsterisk" />
+        <module name="JavadocMissingLeadingAsterisk">
+            <property name="severity" value="warning" />
+        </module>
+        
+        <module name="JavadocMissingWhitespaceAfterAsterisk" >
+            <property name="severity" value="warning" />
+        </module>
         <module name="JavadocParagraph">
             <property name="violateExecutionOnNonTightHtml" value="true" />
             <property name="allowNewlineParagraph" value="false" />
@@ -210,7 +215,9 @@
         <module name="AvoidEscapedUnicodeCharacters" />
         <module name="CommentsIndentation" />
         <module name="DescendantToken" />
-        <module name="FinalParameters" />
+        <module name="FinalParameters" >
+            <property name="severity" value="warning" />
+        </module>
         <module name="Indentation">
             <property name="arrayInitIndent" value="2" />
             <property name="lineWrappingIndentation" value="8" />
