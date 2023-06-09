@@ -11,6 +11,6 @@ jobs:
       - name: Dependency Review
         uses: actions/dependency-review-action@v3
         with:
+          head-ref: HEAD
+          base-ref: "${{ github.sha }}"
           config-file: './.github/workflows/resources/dependency-review-config.yml'
-
-
