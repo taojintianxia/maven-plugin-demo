@@ -1,0 +1,32 @@
+name: Nightly - Check
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  MAVEN_OPTS: -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.http.retryHandler.class=standard -Dmaven.wagon.http.retryHandler.count=3 -Dcheckstyle.skip=true
+
+jobs:
+  check-spotbugs:
+    name: Check - SpotBugs
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ env.CACHE_PREFIX }}-maven-third-party-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ env.CACHE_PREFIX }}-maven-third-party-
+      - name: Run SpotBugs
+        run: mvn clean install spotbugs:spotbugs -T1C
+      - name: Retrieve SpotBugs report list
+        run: echo "SPOTBUGS_LIST=$(find "$(pwd)" -name "spotbugsXml.xml" -exec readlink -f {} \; | tr '\n' ',' | sed 's/,$//')" >> $GITHUB_ENV
+      - name: Upload to SonarCloud
+        env:
+          MAVEN_OPTS: "-XX:+UseG1GC -XX:InitialHeapSize=2g -XX:MaxHeapSize=6g -XX:+UseStringDeduplication"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+        run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=taojintianxia_shardingsphere_spotbugs -Dsonar.java.spotbugs.reportPaths=${SPOTBUGS_LIST} -Dmaven.javadoc.skip=true -Drat.skip=true -Djacoco.skip=true -DskipTests

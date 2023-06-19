@@ -1,19 +1,19 @@
-name: Dependency Review
-
-on: [push, workflow_dispatch]
-
-permissions:
-  contents: read
-
-jobs:
-  dependency-review:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Checkout Repository'
-        uses: actions/checkout@v3
-      - name: Dependency Review
-        uses: actions/dependency-review-action@v3
-        with:
-          base-ref: ${{ github.event.before }}
-          head-ref: ${{ github.sha }}
-          allow-licenses: MIT, Unlicense, ISC, Apache-2.0
+#name: Dependency Review
+#
+#on: [push, workflow_dispatch]
+#
+#permissions:
+#  contents: read
+#
+#jobs:
+#  dependency-review:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: 'Checkout Repository'
+#        uses: actions/checkout@v3
+#      - name: Dependency Review
+#        uses: actions/dependency-review-action@v3
+#        with:
+#          base-ref: ${{ github.event.before }}
+#          head-ref: ${{ github.sha }}
+#          allow-licenses: MIT, Unlicense, ISC, Apache-2.0

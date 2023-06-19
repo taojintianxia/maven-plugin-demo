@@ -1,21 +1,21 @@
-name: Test Env
-
-on: [workflow_dispatch]
-
-jobs:
-  run:
-    if: (github.repository == 'taojintianxia/maven-plugin-demo' && github.event_name == 'workflow_dispatch')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up JDK 18
-        uses: actions/setup-java@v1
-        with:
-          java-version: 18
-      - name: Retrieve SpotBugs report list
-        run: |
-          find . -name pom.xml -exec printf "%s," {} + | sed 's/,$//'
-          echo "SPOTBUGS_LIST=$(find . -name pom.xml -exec printf "%s," {} + | sed 's/,$//')" >> $GITHUB_ENV
-      - name: upload to SonarCloud
-        run: echo ${SPOTBUGS_LIST}
+#name: Test Env
+#
+#on: [workflow_dispatch]
+#
+#jobs:
+#  run:
+#    if: (github.repository == 'taojintianxia/maven-plugin-demo' && github.event_name == 'workflow_dispatch')
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#      - name: Set up JDK 18
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: 18
+#      - name: Retrieve SpotBugs report list
+#        run: |
+#          find . -name pom.xml -exec printf "%s," {} + | sed 's/,$//'
+#          echo "SPOTBUGS_LIST=$(find . -name pom.xml -exec printf "%s," {} + | sed 's/,$//')" >> $GITHUB_ENV
+#      - name: upload to SonarCloud
+#        run: echo ${SPOTBUGS_LIST}
