@@ -9,6 +9,6 @@ public class CommonDemoTest {
     
     @Test
     public void testPrint() {
-        System.out.println("Hello World! Common");
+        new CommonDemo().print();
     }
 }

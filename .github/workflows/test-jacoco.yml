@@ -1,0 +1,22 @@
+name: Jacoco Codecov
+on: [push, workflow_dispatch]
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up JDK 11
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+      - name: Aggregate jacoco coverage report
+        run:
+          mvn clean verify -Dmaven.javadoc.skip=true -B -V
+      - name: Generate jacoco coverage to SonarCloud
+        env:
+          MAVEN_OPTS: "-XX:+UseG1GC -XX:InitialHeapSize=2g -XX:MaxHeapSize=6g -XX:+UseStringDeduplication"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+        run: ./mvnw -B sonar:sonar -Dsonar.login=${SONAR_TOKEN} -Dsonar.organization=taojintianxia -Dsonar.projectKey=taojintianxia_maven_plugin_jacoco -Dsonar.coverage.jacoco.xmlReportPaths=report/target/jacoco-aggregate/jacoco.xml -Dmaven.javadoc.skip=true -Drat.skip=true

@@ -17,8 +17,7 @@
     <modules>
         <module>infra</module>
         <module>common</module>
-        <module>jacoco-report</module>
-        <module>infra/infra-demo/infra-demo-sub</module>
+        <module>report</module>
     </modules>
     
     <properties>
@@ -113,110 +112,84 @@
         
         <plugins>
             <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.10</version>
+<!--                <configuration>-->
+<!--                    <includes>-->
+<!--                        <include>org/apache/shardingsphere/*</include>-->
+<!--                    </includes>-->
+<!--                </configuration>-->
+                <executions>
+                    <execution>
+                        <id>pre-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>post-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.2.2</version>
-                <configuration>
-                    <consoleOutput>true</consoleOutput>
-                    <failOnViolation>true</failOnViolation>
-                    <failsOnError>true</failsOnError>
-                    <violationSeverity>error</violationSeverity>
-                    <!--suppress MavenModelInspection -->
-                    <configLocation>${maven.multiModuleProjectDirectory}/src/resources/checkstyle.xml</configLocation>
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                </configuration>
-            </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>org.jacoco</groupId>-->
-            <!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-            <!--                <version>0.8.10</version>-->
-            <!--                <executions>-->
-            <!--                    <execution>-->
-            <!--                        <id>prepare-agent</id>-->
-            <!--                        <goals>-->
-            <!--                            <goal>prepare-agent</goal>-->
-            <!--                        </goals>-->
-            <!--                    </execution>-->
-            <!--                    <execution>-->
-            <!--                        <id>report</id>-->
-            <!--                        <goals>-->
-            <!--                            <goal>report</goal>-->
-            <!--                        </goals>-->
-            <!--                    </execution>-->
-            <!--                </executions>-->
-            <!--            </plugin>-->
-            <!--            <plugin>-->
-            <!--                <groupId>org.apache.maven.plugins</groupId>-->
-            <!--                <artifactId>maven-pmd-plugin</artifactId>-->
-            <!--                <version>3.20.0</version>-->
-            <!--                <configuration>-->
-            <!--                    <aggregate>true</aggregate>-->
-            <!--                    <targetJdk>${java.version}</targetJdk>-->
-            <!--                    <rulesets>-->
-            <!--                        &lt;!&ndash;suppress MavenModelInspection &ndash;&gt;-->
-            <!--                        <ruleset>${maven.multiModuleProjectDirectory}/src/resources/pmd.xml</ruleset>-->
-            <!--                    </rulesets>-->
-            <!--                </configuration>-->
-            <!--            </plugin>-->
-            <!--            -->
         </plugins>
     </build>
     
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.2.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.20.0</version>
-                <reportSets>
-                    <reportSet><!-- by default, id = "default" -->
-                        <reports><!-- select non-aggregate reports -->
-                            <report>pmd</report>
-                            <report>cpd</report>
-                        </reports>
-                    </reportSet>
-                    <reportSet><!-- aggregate reportSet, to define in poms having modules -->
-                        <id>aggregate</id>
-                        <inherited>false</inherited> <!-- don't run aggregate in child modules -->
-                        <reports>
-                            <report>aggregate-pmd</report>
-                            <report>aggregate-cpd</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-            
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.7.3.4</version>
-                <configuration>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <failOnError>false</failOnError>
-                    <includeFilterFile>src/resources/spotbugs-security-include.xml</includeFilterFile>
-                    <excludeFilterFile>src/resources/spotbugs-security-exclude.xml</excludeFilterFile>
-                    <xmlOutput>true</xmlOutput>
-                    <!-- Optional directory to put spotbugs xdoc xml report -->
-                    <xmlOutputDirectory>target/site</xmlOutputDirectory>
-                    <plugins>
-                        <plugin>
-                            <groupId>com.h3xstream.findsecbugs</groupId>
-                            <artifactId>findsecbugs-plugin</artifactId>
-                            <version>LATEST</version> <!-- Auto-update to the latest stable -->
-                        </plugin>
-                    </plugins>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
+<!--    <reporting>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
+<!--                <version>3.2.2</version>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-pmd-plugin</artifactId>-->
+<!--                <version>3.20.0</version>-->
+<!--                <reportSets>-->
+<!--                    <reportSet>&lt;!&ndash; by default, id = "default" &ndash;&gt;-->
+<!--                        <reports>&lt;!&ndash; select non-aggregate reports &ndash;&gt;-->
+<!--                            <report>pmd</report>-->
+<!--                            <report>cpd</report>-->
+<!--                        </reports>-->
+<!--                    </reportSet>-->
+<!--                    <reportSet>&lt;!&ndash; aggregate reportSet, to define in poms having modules &ndash;&gt;-->
+<!--                        <id>aggregate</id>-->
+<!--                        <inherited>false</inherited> &lt;!&ndash; don't run aggregate in child modules &ndash;&gt;-->
+<!--                        <reports>-->
+<!--                            <report>aggregate-pmd</report>-->
+<!--                            <report>aggregate-cpd</report>-->
+<!--                        </reports>-->
+<!--                    </reportSet>-->
+<!--                </reportSets>-->
+<!--            </plugin>-->
+<!--            -->
+<!--            <plugin>-->
+<!--                <groupId>com.github.spotbugs</groupId>-->
+<!--                <artifactId>spotbugs-maven-plugin</artifactId>-->
+<!--                <version>4.7.3.4</version>-->
+<!--                <configuration>-->
+<!--                    <effort>Max</effort>-->
+<!--                    <threshold>Low</threshold>-->
+<!--                    <failOnError>false</failOnError>-->
+<!--                    <includeFilterFile>src/resources/spotbugs-security-include.xml</includeFilterFile>-->
+<!--                    <excludeFilterFile>src/resources/spotbugs-security-exclude.xml</excludeFilterFile>-->
+<!--                    <xmlOutput>true</xmlOutput>-->
+<!--                    &lt;!&ndash; Optional directory to put spotbugs xdoc xml report &ndash;&gt;-->
+<!--                    <xmlOutputDirectory>target/site</xmlOutputDirectory>-->
+<!--                    <plugins>-->
+<!--                        <plugin>-->
+<!--                            <groupId>com.h3xstream.findsecbugs</groupId>-->
+<!--                            <artifactId>findsecbugs-plugin</artifactId>-->
+<!--                            <version>LATEST</version> &lt;!&ndash; Auto-update to the latest stable &ndash;&gt;-->
+<!--                        </plugin>-->
+<!--                    </plugins>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </reporting>-->
 </project>

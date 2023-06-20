@@ -5,9 +5,8 @@ import org.junit.Test;
 
 public class DemoTest {
     
-    
     @Test
     public void testPrintDemoSub() {
-        System.out.println("Hello World! Common Demo");
+        new Demo().printDemoSub();
     }
 }
