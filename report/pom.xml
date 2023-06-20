@@ -43,7 +43,7 @@
                     <!--  在执行 mvn verify 时，生成聚合测试覆盖率报告，所有 Maven 子模块的测试覆盖率数据 -->
                     <execution>
                         <id>report-aggregate</id>
-                        <phase>verify</phase>
+                        <phase>test</phase>
                         <goals>
                             <goal>report-aggregate</goal>
                         </goals>

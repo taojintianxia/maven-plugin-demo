@@ -36,7 +36,7 @@
         <spotbugs-maven-plugin.version>4.7.2.1</spotbugs-maven-plugin.version>
         <fb-contrib.version>7.6.0</fb-contrib.version>
         <findsecbugs.version>1.12.0</findsecbugs.version>
-        <apache-rat-plugin.version>0.15</apache-rat-plugin.version>
+        <apacheg-rat-plugin.version>0.15</apacheg-rat-plugin.version>
         <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
         <spotbugs.version>4.7.0</spotbugs.version>
     </properties>
@@ -54,62 +54,8 @@
             <version>5.1.49</version>
         </dependency>
     </dependencies>
-    
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs</artifactId>
-                <version>${spotbugs.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    
+
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>3.2.2</version>
-                    <executions>
-                        <execution>
-                            <id>report</id>
-                            <goals>
-                                <goal>checkstyle</goal>
-                                <goal>checkstyle-aggregate</goal>
-                            </goals>
-                            <phase>verify</phase>
-                        </execution>
-                    </executions>
-                </plugin>
-                
-                <plugin>
-                    <groupId>com.github.spotbugs</groupId>
-                    <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>${spotbugs-maven-plugin.version}</version>
-                    <configuration>
-                        <fork>false</fork>
-                        <failOnError>false</failOnError>
-                        <!--suppress MavenModelInspection -->
-                        <excludeFilterFile>${maven.multiModuleProjectDirectory}/src/resources/spotbugs.xml</excludeFilterFile>
-                        <plugins>
-                            <plugin>
-                                <groupId>com.mebigfatguy.fb-contrib</groupId>
-                                <artifactId>fb-contrib</artifactId>
-                                <version>${fb-contrib.version}</version>
-                            </plugin>
-                            <plugin>
-                                <groupId>com.h3xstream.findsecbugs</groupId>
-                                <artifactId>findsecbugs-plugin</artifactId>
-                                <version>${findsecbugs.version}</version>
-                            </plugin>
-                        </plugins>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-        
         <plugins>
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -138,58 +84,4 @@
             </plugin>
         </plugins>
     </build>
-    
-<!--    <reporting>-->
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-checkstyle-plugin</artifactId>-->
-<!--                <version>3.2.2</version>-->
-<!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-pmd-plugin</artifactId>-->
-<!--                <version>3.20.0</version>-->
-<!--                <reportSets>-->
-<!--                    <reportSet>&lt;!&ndash; by default, id = "default" &ndash;&gt;-->
-<!--                        <reports>&lt;!&ndash; select non-aggregate reports &ndash;&gt;-->
-<!--                            <report>pmd</report>-->
-<!--                            <report>cpd</report>-->
-<!--                        </reports>-->
-<!--                    </reportSet>-->
-<!--                    <reportSet>&lt;!&ndash; aggregate reportSet, to define in poms having modules &ndash;&gt;-->
-<!--                        <id>aggregate</id>-->
-<!--                        <inherited>false</inherited> &lt;!&ndash; don't run aggregate in child modules &ndash;&gt;-->
-<!--                        <reports>-->
-<!--                            <report>aggregate-pmd</report>-->
-<!--                            <report>aggregate-cpd</report>-->
-<!--                        </reports>-->
-<!--                    </reportSet>-->
-<!--                </reportSets>-->
-<!--            </plugin>-->
-<!--            -->
-<!--            <plugin>-->
-<!--                <groupId>com.github.spotbugs</groupId>-->
-<!--                <artifactId>spotbugs-maven-plugin</artifactId>-->
-<!--                <version>4.7.3.4</version>-->
-<!--                <configuration>-->
-<!--                    <effort>Max</effort>-->
-<!--                    <threshold>Low</threshold>-->
-<!--                    <failOnError>false</failOnError>-->
-<!--                    <includeFilterFile>src/resources/spotbugs-security-include.xml</includeFilterFile>-->
-<!--                    <excludeFilterFile>src/resources/spotbugs-security-exclude.xml</excludeFilterFile>-->
-<!--                    <xmlOutput>true</xmlOutput>-->
-<!--                    &lt;!&ndash; Optional directory to put spotbugs xdoc xml report &ndash;&gt;-->
-<!--                    <xmlOutputDirectory>target/site</xmlOutputDirectory>-->
-<!--                    <plugins>-->
-<!--                        <plugin>-->
-<!--                            <groupId>com.h3xstream.findsecbugs</groupId>-->
-<!--                            <artifactId>findsecbugs-plugin</artifactId>-->
-<!--                            <version>LATEST</version> &lt;!&ndash; Auto-update to the latest stable &ndash;&gt;-->
-<!--                        </plugin>-->
-<!--                    </plugins>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
-<!--    </reporting>-->
 </project>
