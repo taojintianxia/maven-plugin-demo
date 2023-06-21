@@ -1,0 +1,21 @@
+name: Jacoco Codecov
+
+on: [push, workflow_dispatch]
+
+jobs:
+  - name: Using classic charts
+    uses: lowlighter/metrics@latest
+    with:
+      filename: metrics.plugin.stargazers.svg
+      token: ${{ secrets.METRICS_TOKEN }}
+      base: ""
+      plugin_stargazers: yes
+  
+  - name: Using graph charts
+    uses: lowlighter/metrics@latest
+    with:
+      filename: metrics.plugin.stargazers.graph.svg
+      token: ${{ secrets.METRICS_TOKEN }}
+      base: ""
+      plugin_stargazers: yes
+      plugin_stargazers_charts_type: graph
